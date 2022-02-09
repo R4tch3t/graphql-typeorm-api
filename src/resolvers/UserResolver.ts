@@ -72,17 +72,19 @@ export class UserResolver {
         return true
     }
     
-    @Query(()=>[User])
-    async me(
-      //  @Arg("user",()=>User) user: User 
-    ){
-        let user = await User.find()
+    @Query(()=>User)
+    async me(@Arg("token",()=>String) token: string){
+        //console.log(Cookies.get())
+        console.log(token)
+        
+        let user: any = jsonwebtoken.decode(token)
+        
         if(!user){
             throw new Error("You are Not auth")
         }
-         
+        
         //user is auth
-        return await User.findOne(user[0].id)
+        return await User.findOne(user.id)
     }
 
     @Mutation(()=>String)
@@ -115,13 +117,16 @@ export class UserResolver {
         if (!valid) {
             throw new Error('Incorrect password')
         }
-
-        // return json web token
-        return jsonwebtoken.sign(
+        const token = jsonwebtoken.sign(
             { id: user.id, email: user.email },
             process.env.JWT_SECRET!,
             { expiresIn: '1d' }
-          )
+          );
+          //Cookies.set('userToken', token)
+         // console.log(Cookies.get())
+        //global.window.sessionStorage.setItem("userToken",token);
+        // return json web token
+        return token
     }
 
     @Query(()=>[User])
