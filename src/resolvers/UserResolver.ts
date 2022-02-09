@@ -84,7 +84,7 @@ export class UserResolver {
         }
         
         //user is auth
-        return await User.findOne(user.id)
+        return await User.findOneOrFail(user.id)
     }
 
     @Mutation(()=>String)
