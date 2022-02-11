@@ -1,5 +1,5 @@
 import express from 'express';
-import {ApolloServer} from 'apollo-server-express';
+import {ApolloServer, gql} from 'apollo-server-express';
 import {ApolloServerPluginDrainHttpServer } from 'apollo-server-core'
 import jwt from 'express-jwt';
 import bodyParser from 'body-parser'
@@ -9,7 +9,8 @@ import { ProductResolver } from './resolvers/ProductResolver';
 import { AuthorResolver } from './resolvers/AuthorResolver';
 import { BookResolver } from './resolvers/BookResolver';
 import { UserResolver } from './resolvers/UserResolver';
-import http from 'http'
+import { FileResolver } from './resolvers/FileResolver';
+import {graphqlUploadExpress} from 'graphql-upload';
 
 export async function startServer(){
     const app = express();
@@ -28,7 +29,7 @@ export async function startServer(){
       )*/
     const server = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [PingResolver, ProductResolver, AuthorResolver, BookResolver, UserResolver]
+            resolvers: [PingResolver, ProductResolver, AuthorResolver, BookResolver, UserResolver, FileResolver]
         }),
        // plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
         context: ({req, res}) => {
@@ -40,7 +41,7 @@ export async function startServer(){
         }//({req, res})
     });
     await server.start()
-    
+    app.use(graphqlUploadExpress());
    // app.use('*',bodyParser.json(),auth)
     server.applyMiddleware({app, path: '/graphql'})
     
