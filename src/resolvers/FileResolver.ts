@@ -6,6 +6,7 @@ import { Column } from "typeorm";
 //import 'dotenv/config'
 import {GraphQLUpload} from 'graphql-upload';
 import { finished } from 'stream/promises';
+import { resolve } from "path/posix";
 
 @InputType()
 class FileInput {
@@ -83,7 +84,63 @@ export class FileResolver {
         //return { filename, mimetype, encoding };
         return await newFile.save();
     }
-    
+
+    saveFiles = (files: any[]) => new Promise((resolve,reject)=>{
+        const filesSaved: Archivo[] = [];
+        files.forEach(async (file,i)=>{
+            const { createReadStream, filename, mimetype, encoding } = await file;
+
+            // Invoking the `createReadStream` will return a Readable Stream.
+            // See https://nodejs.org/api/stream.html#stream_readable_streams
+            const stream = createReadStream();
+
+            // This is purely for demonstration purposes and will overwrite the
+            // local-file-output.txt in the current working directory on EACH upload.
+
+            const out = require('fs').createWriteStream(filename);
+            stream.pipe(out);
+            await finished(out);
+            const newFile = new Archivo();
+            newFile.filename=filename
+            newFile.mimetype=mimetype
+            newFile.encoding=encoding
+            filesSaved.push(await newFile.save())
+            console.log(filename)
+            if(i===files.length-1){
+                resolve(filesSaved)
+            }
+            
+        })
+    })
+
+    @Mutation(()=>[Archivo])
+    async multiUpload(@Arg("files",()=>[GraphQLUpload]) files: any[]){
+       // const filesSaved: Archivo[] = [];
+      /*  await new Promise((resolve,reject)=>{
+            files.forEach(async (file,i)=>{
+                const { createReadStream, filename, mimetype, encoding } = await file;
+
+                // Invoking the `createReadStream` will return a Readable Stream.
+                // See https://nodejs.org/api/stream.html#stream_readable_streams
+                const stream = createReadStream();
+
+                // This is purely for demonstration purposes and will overwrite the
+                // local-file-output.txt in the current working directory on EACH upload.
+
+                const out = require('fs').createWriteStream(filename);
+                stream.pipe(out);
+                await finished(out);
+                const newFile = new Archivo();
+                newFile.filename=filename
+                newFile.mimetype=mimetype
+                newFile.encoding=encoding
+                filesSaved.push(await newFile.save())
+                console.log(filename)
+            })
+        })*/
+        //return { filename, mimetype, encoding };
+        return await this.saveFiles(files);
+    }
 
     @Query(()=>[Archivo])
     archivos(){
