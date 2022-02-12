@@ -1,4 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, BaseEntity, OneToMany } from "typeorm";
+import { 
+    Entity, 
+    Column, 
+    PrimaryColumn, 
+    CreateDateColumn, 
+    BaseEntity, 
+    OneToMany,
+    BeforeInsert,
+    getManager 
+} from "typeorm";
 import {Field, Int, ObjectType} from 'type-graphql'
 import { Book } from "./Book";
 
@@ -6,8 +15,8 @@ import { Book } from "./Book";
 @Entity()
 export class Author extends BaseEntity {
     
-    @Field(()=>Int,{nullable: true})
-    @PrimaryGeneratedColumn()
+    @Field({ nullable: true })
+    @PrimaryColumn()
     id!: number;
 
     @Field(() => String)
@@ -22,4 +31,11 @@ export class Author extends BaseEntity {
     @OneToMany(() => Book, book => book.author)
     books!: Book[];
 
+    @BeforeInsert()
+    async beforeInsert(): Promise<void>{
+      const res = await getManager().query("select XE.AUTHORS_SEQ.nextval ID from dual");
+      this.id= res[0].ID;
+    }
+
 }
+

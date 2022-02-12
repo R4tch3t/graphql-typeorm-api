@@ -7,6 +7,7 @@ import { ProductResolver } from './resolvers/ProductResolver';
 import { AuthorResolver } from './resolvers/AuthorResolver';
 import { BookResolver } from './resolvers/BookResolver';
 import { UserResolver } from './resolvers/UserResolver';
+import { TramiteResolver } from './resolvers/TramiteResolver';
 
 export async function startServer(){
     /*const jwt = require('express-jwt')
@@ -18,7 +19,8 @@ export async function startServer(){
    // app.use(auth)
     const server = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [PingResolver, ProductResolver, AuthorResolver, BookResolver, UserResolver]
+            resolvers: [PingResolver, ProductResolver, AuthorResolver, BookResolver, UserResolver, TramiteResolver],
+            validate: false
         }),
         context: ({req, res}) => ({req, res})
     });

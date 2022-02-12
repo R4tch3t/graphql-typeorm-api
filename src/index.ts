@@ -4,9 +4,9 @@ import { startServer } from "./app"
 
 async function main() {
     const app = await startServer();
-    app.listen(3000);
+    app.listen(3500);
     connect();
-    console.log('Server on port', 3000);
+    console.log('Conectado a la BDD y Servidor ejecutándose en l puerto', 3500);
 }
 
 main();

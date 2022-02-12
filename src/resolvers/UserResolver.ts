@@ -2,6 +2,8 @@ import {Resolver, Query, Mutation, Arg, Field, InputType, Int } from "type-graph
 import { User } from "../entity/User";
 import jsonwebtoken from "jsonwebtoken"
 import bcrypt from "bcrypt"
+import { getRepository } from "typeorm";
+
 //import 'dotenv/config'
 
 @InputType()
@@ -90,11 +92,12 @@ export class UserResolver {
         @Arg("signUp",()=>SignUp) signUp: SignUp
     ){
         //dotenv.config() 
-        
+        console.log('aqui paso')
         signUp.pass=await bcrypt.hash(signUp.pass, 10)
         const user = await User.create(signUp).save()
-        return jsonwebtoken.sign({ id: user.id, email: user.email },
-            process.env.JWT_SECRET!,
+        return jsonwebtoken.sign(
+            { id: user.id, email: user.email },
+            'process.env.JWT_SECRET!',
             { expiresIn: '1y' })
     }
 
@@ -104,7 +107,12 @@ export class UserResolver {
     ){
         const email = logIn.email
         const pass = logIn.pass
+        
         const user = await User.findOne({ where: { email } });
+        // const user = await getRepository(User)
+        // .createQueryBuilder("user")
+        // .where("user.email = :correo", { correo: "rgnogueda@gmail.com" })
+        // .getOne();
 
         if (!user) {
             throw new Error('No user with that email')
@@ -119,7 +127,7 @@ export class UserResolver {
         // return json web token
         return jsonwebtoken.sign(
             { id: user.id, email: user.email },
-            process.env.JWT_SECRET!,
+            'process.env.JWT_SECRET!',
             { expiresIn: '1d' }
           )
     }
