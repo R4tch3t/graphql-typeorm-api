@@ -7,6 +7,6 @@ export class TramiteResolver {
 
     @Query(()=>[Tramite])
     tramites(){
-        return Tramite.find()
+        return Tramite.find({active: true})
     }
 }

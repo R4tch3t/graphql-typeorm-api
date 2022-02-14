@@ -26,7 +26,7 @@ export async function connect(){
         entities: [
             path.join(__dirname,'../entity/**/**.ts')
         ],
-        synchronize: true
+        synchronize: false
     })
 
 

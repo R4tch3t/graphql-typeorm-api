@@ -51,8 +51,9 @@ import {
       })
       documentObtained!: string;
 
-  
-   
-  
+      @Field()
+      @Column("boolean", { name: "active" })
+      active!: boolean;
+
   
   }

@@ -31,9 +31,10 @@ export async function startServer(){
       )*/
     const server = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [PingResolver, ProductResolver, AuthorResolver, BookResolver, UserResolver, TramiteResolver, FileResolver],
+            resolvers: [PingResolver, ProductResolver, AuthorResolver, BookResolver, UserResolver, TramiteResolver,],
             validate: false
-            }),
+
+        }),
        // plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
         context: ({req, res}) => {
           const token = req.headers.authorization || '';
