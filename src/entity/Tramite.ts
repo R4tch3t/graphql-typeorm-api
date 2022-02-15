@@ -3,12 +3,15 @@ import {
     Column,
     BaseEntity,
     PrimaryColumn,
-    CreateDateColumn,
-    BeforeInsert,
-    getManager
+    OneToMany
   } from "typeorm";
   import { Field, Int, ObjectType } from "type-graphql";
-  
+  import { DownloadableFormat } from "./DownloadableFormat";
+  import { AttModule } from "./AttModule";
+  import { Requirement } from "./Requirement";
+  import { ReqAd } from "./ReqAd";
+  import { TramitePregunta } from "./TramitePregunta";
+
   @ObjectType()
   @Entity('procedures.procedure')
   export class Tramite extends BaseEntity {
@@ -54,6 +57,26 @@ import {
       @Field()
       @Column("boolean", { name: "active" })
       active!: boolean;
+
+      @Field(()=>[DownloadableFormat])
+      @OneToMany(() => DownloadableFormat, downloadableFormat => downloadableFormat.procedure_)
+      downloadableFormats!: DownloadableFormat[];
+
+      @Field(()=>[AttModule])
+      @OneToMany(() => AttModule, attModule => attModule.procedure_)
+      attModules!: AttModule[];
+
+      @Field(()=>[Requirement],{nullable: true})
+      @OneToMany(() => Requirement, requirement => requirement.procedure_)
+      requirements!: Requirement[];
+
+      @Field(()=>[ReqAd],{nullable: true})
+      @OneToMany(() => ReqAd, reqAd => reqAd.procedure_)
+      reqAds!: ReqAd[];
+
+      @Field(()=>[TramitePregunta],{nullable: true})
+      @OneToMany(() => TramitePregunta, tramitePregunta => tramitePregunta.tramite_)
+      tramitePreguntas!: TramitePregunta[];
 
   
   }
