@@ -21,19 +21,6 @@ import path from 'path';
 
 export async function startServer(){
     const app = express();
-   /* const httpServer = http.createServer(app);
-    const auth = jwt({
-        secret: process.env.JWT_SECRET!,
-        algorithms: ['sha1', 'RS256', 'HS256'],
-        credentialsRequired: false
-      })*/
-      /*app.use('/api', bodyParser.json(), auth, ApolloServer(req => ({
-        UserResolver,
-        context: {
-          user: req.user
-        }
-      }))
-      )*/
     const server = new ApolloServer({
         schema: await buildSchema({
             resolvers: [PingResolver, ProductResolver, AuthorResolver, BookResolver, UserResolver, TramiteResolver,DownFormatResolver,
