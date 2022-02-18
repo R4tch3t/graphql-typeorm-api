@@ -17,7 +17,7 @@ import { ReqAdResolver } from './resolvers/ReqAdResolver';
 import { TramitePreguntaResolver } from './resolvers/TramitePreguntaResolver';
 import { FileResolver } from './resolvers/FileResolver';
 import {graphqlUploadExpress} from 'graphql-upload';
-
+import path from 'path';
 
 export async function startServer(){
     const app = express();
@@ -54,6 +54,12 @@ export async function startServer(){
     app.use(graphqlUploadExpress());
    // app.use('*',bodyParser.json(),auth)
     server.applyMiddleware({app, path: '/graphql'})
-    
+
+    app.use(express.static(path.join(__dirname, 'front-end')));
+    app.use("/",express.static(path.join(__dirname, 'fron-end')));
+    app.get('/', function (req, res) {
+      res.sendFile(path.join(__dirname, 'front-end', 'index.html'));
+    });
+
     return app;
 }
