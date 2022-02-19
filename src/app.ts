@@ -43,6 +43,7 @@ export async function startServer(){
     server.applyMiddleware({app, path: '/graphql'})
 
     app.use(express.static(path.join(__dirname, 'front-end')));
+
     app.use("/",express.static(path.join(__dirname, 'fron-end')));
     app.get('/', function (req, res) {
       res.sendFile(path.join(__dirname, 'front-end', 'index.html'));
