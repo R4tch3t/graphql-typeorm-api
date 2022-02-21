@@ -13,9 +13,8 @@ import schemas from './schemas/schemas'
 export async function startServer(){
     const app = express();
     const schema = await schemas();
-    console.log(process.env.NODE_ENV)
     const configurations: {[index: string]:any} = {
-      // Note: You may need sudo to run on port 443
+      // Note: You may need sudo to run on port 443 
       production: { ssl: true, port: 443, hostname: 'example.com' },
       development: { ssl: false, port: 3000, hostname: 'localhost' },
     };

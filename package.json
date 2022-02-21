@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.ts --exec ts-node",
+    "dev": "nodemon -r dotenv/config src/index.ts --exec ts-node",
     "codegen-dev": "graphql-codegen --config codegen.yml",
     "generate": "graphql-codegen"
   },
