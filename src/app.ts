@@ -1,46 +1,36 @@
 import express from 'express';
 import {ApolloServer, gql} from 'apollo-server-express';
+import fs from 'fs';
+import https from 'https';
+import http from 'http';
 import {ApolloServerPluginDrainHttpServer } from 'apollo-server-core'
 import jwt from 'express-jwt';
 import bodyParser from 'body-parser'
-import { buildSchema } from 'type-graphql';
-import { PingResolver } from './resolvers/ping';
-import { ProductResolver } from './resolvers/ProductResolver';
-import { AuthorResolver } from './resolvers/AuthorResolver';
-import { BookResolver } from './resolvers/BookResolver';
-import { UserResolver } from './resolvers/UserResolver';
-import { TramiteResolver } from './resolvers/TramiteResolver';
-import { DownFormatResolver } from './resolvers/DownFormatResolver';
-import { AttModuleResolver } from './resolvers/AttModuleResolver';
-import { RequirementResolver } from './resolvers/RequirementResolver';
-import { ReqAdResolver } from './resolvers/ReqAdResolver';
-import { TramitePreguntaResolver } from './resolvers/TramitePreguntaResolver';
-import { FileResolver } from './resolvers/FileResolver';
 import {graphqlUploadExpress} from 'graphql-upload';
 import path from 'path';
+import schemas from './schemas/schemas'
 
 export async function startServer(){
     const app = express();
-    const server = new ApolloServer({
-        schema: await buildSchema({
-            resolvers: [PingResolver, ProductResolver, AuthorResolver, BookResolver, UserResolver, TramiteResolver,DownFormatResolver,
-              AttModuleResolver, RequirementResolver, ReqAdResolver, TramitePreguntaResolver],
-            validate: false
+    const schema = await schemas();
+    console.log(process.env.NODE_ENV)
+    const configurations: {[index: string]:any} = {
+      // Note: You may need sudo to run on port 443
+      production: { ssl: true, port: 443, hostname: 'example.com' },
+      development: { ssl: false, port: 3000, hostname: 'localhost' },
+    };
+    const environment = process.env.NODE_ENV || 'development';
+    const config = configurations[environment];
 
-        }),
+    const server = new ApolloServer({
+        schema,
        // plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-        context: ({req, res}) => {
-          const token = req.headers.authorization || '';
-          //const user = getUser(token);
-         // console.log(token);
-         // console.log(req.headers.data);
-          return ({req, res}) 
-        }//({req, res})
+        context: ({req, res}) => ({req, res})
     });
     await server.start()
     app.use(graphqlUploadExpress());
    // app.use('*',bodyParser.json(),auth)
-    server.applyMiddleware({app, path: '/graphql'})
+    server.applyMiddleware({app, path: '/graphql'});
 
     app.use(express.static(path.join(__dirname, 'front-end')));
 
@@ -49,5 +39,32 @@ export async function startServer(){
       res.sendFile(path.join(__dirname, 'front-end', 'index.html'));
     });
 
-    return app;
+    let httpServer: any;
+    if (config.ssl) {
+      // Assumes certificates are in a .ssl folder off of the package root.
+      // Make sure these files are secured.
+      httpServer = https.createServer(
+        {
+          key: fs.readFileSync(`./ssl/${environment}/server.key`),
+          cert: fs.readFileSync(`./ssl/${environment}/server.crt`)
+        },
+
+        app,
+      );
+    } else {
+      httpServer = http.createServer(app);
+    }
+
+    await new Promise<void>(resolve =>
+      httpServer.listen({ port: config.port }, resolve)
+    );
+    
+    console.log(
+      '🚀 Server ready at',
+      `http${config.ssl ? 's' : ''}://${config.hostname}:${config.port}${
+        server.graphqlPath
+      }`
+    );
+
+    //return app;
 }
