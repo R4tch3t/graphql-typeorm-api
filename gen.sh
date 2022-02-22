@@ -39,4 +39,4 @@ DNS.2 = bar.$NAME # Optionally, add additional domains (I've added a subdomain h
 EOF
 # Create the signed certificate
 openssl x509 -req -in $NAME.csr -CA myCA.pem -CAkey myCA.key -CAcreateserial \
--out $NAME.crt -days 825 -sha256 -extfile $NAME.ext
+-out $NAME.crt -days $days -sha256 -extfile $NAME.ext
