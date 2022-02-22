@@ -15,9 +15,9 @@ export async function startServer(){
     const schema = await schemas();
     const configurations: {[index: string]:any} = {
       // Note: You may need sudo to run on port 443 
-      production: { ssl: true, port: 443, hostname: 'example.com' },
-      development: { ssl: false, port: 3000, hostname: 'localhost' },
-    };
+      production: { ssl: true, port: 443, hostname: 'localhost' },
+      development: { ssl: true, port: 3000, hostname: 'localhost' },
+    }; 
     const environment = process.env.NODE_ENV || 'development';
     const config = configurations[environment];
 
@@ -44,8 +44,8 @@ export async function startServer(){
       // Make sure these files are secured.
       httpServer = https.createServer(
         {
-          key: fs.readFileSync(`./ssl/${environment}/server.key`),
-          cert: fs.readFileSync(`./ssl/${environment}/server.crt`)
+          key: fs.readFileSync(path.join(__dirname,`ssl/${environment}/server.key`)),
+          cert: fs.readFileSync(path.join(__dirname,`ssl/${environment}/server.crt`))
         },
 
         app,
