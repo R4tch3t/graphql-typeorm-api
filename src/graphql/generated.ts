@@ -203,7 +203,6 @@ export type Query = {
   books: Array<Book>;
   downFormats: Array<DownloadableFormat>;
   me: User;
-  ping: Scalars['String'];
   products: Array<Product>;
   requirements: Array<Requirement>;
   requisitosAds: Array<ReqAd>;

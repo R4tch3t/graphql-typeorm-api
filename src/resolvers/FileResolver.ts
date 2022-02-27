@@ -1,9 +1,5 @@
 import {Resolver, Query, Mutation, Arg, Field, InputType, Int } from "type-graphql";
 import { Archivo } from "../entity/Archivo";
-import jsonwebtoken from "jsonwebtoken"
-import bcrypt from "bcrypt"
-import { Column } from "typeorm";
-//import 'dotenv/config'
 import {GraphQLUpload} from 'graphql-upload';
 import { finished } from 'stream/promises';
 

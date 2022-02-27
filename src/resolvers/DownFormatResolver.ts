@@ -1,4 +1,4 @@
-import {Resolver, Query, Mutation, Arg, Field, InputType, Int } from "type-graphql";
+import {Resolver, Query} from "type-graphql";
 import { DownloadableFormat } from '../entity/DownloadableFormat';
 
 @Resolver()

@@ -1,8 +1,26 @@
-import {Resolver, Query, Mutation, Arg, Field, InputType, Int, ObjectType, ArgsType, InterfaceType, createUnionType } from "type-graphql";
-import { BaseEntity, Column, Entity, EntityRepository } from "typeorm";
+import {Resolver, Query, Mutation, Arg, Field, InputType, Int} from "type-graphql";
+import { Column } from "typeorm";
 import { Author } from "../entity/Author";
 import { Book } from "../entity/Book";
+import { DocumentNode } from 'graphql';
+import gql from 'graphql-tag';
 
+const postsQueryDocument = gql`
+  query Books {
+    books {
+        id
+        title
+    }
+  }
+`
+
+const Posts = () => {
+    const { data } = useCustomFetchGraphQLData(postsQueryDocument);
+}
+  
+function useCustomFetchGraphQLData(postsQueryDocument: DocumentNode): { data: any; } {
+    throw new Error('Function not implemented.');
+}
 @InputType()
 class AuthorBook {
     @Field()
@@ -23,9 +41,6 @@ class BookInput {
 
 @InputType()
 class BookUpdateInput {
-
-    /*@Field(()=>Author, {nullable: true})
-    author?: Author;*/
     
     @Field(()=>String, {nullable: true})
     title?: string;
@@ -74,7 +89,7 @@ export class BookResolver {
         await Book.update({id}, fields)
         return true
     }
-
+    
     @Query(()=>[Book])
     books(){
         return Book.find({ relations: ["author"] })

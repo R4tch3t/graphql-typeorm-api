@@ -1,6 +1,5 @@
 
 import { buildSchema } from 'type-graphql';
-import { PingResolver } from '../resolvers/ping';
 import { ProductResolver } from '../resolvers/ProductResolver';
 import { AuthorResolver } from '../resolvers/AuthorResolver';
 import { BookResolver } from '../resolvers/BookResolver';
@@ -14,8 +13,8 @@ import { TramitePreguntaResolver } from '../resolvers/TramitePreguntaResolver';
 import { FileResolver } from '../resolvers/FileResolver';
 
 export default async () => await buildSchema({
-    resolvers: [PingResolver, ProductResolver, AuthorResolver, BookResolver, UserResolver, TramiteResolver,DownFormatResolver,
-      AttModuleResolver, RequirementResolver, ReqAdResolver, TramitePreguntaResolver],
+    resolvers: [ ProductResolver, AuthorResolver, BookResolver, UserResolver, TramiteResolver,DownFormatResolver,
+      AttModuleResolver, RequirementResolver, ReqAdResolver, TramitePreguntaResolver ],
     validate: false
 
 })

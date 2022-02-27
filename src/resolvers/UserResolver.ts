@@ -2,10 +2,6 @@ import {Resolver, Query, Mutation, Arg, Field, InputType, Int } from "type-graph
 import { User } from "../entity/User";
 import jsonwebtoken from "jsonwebtoken"
 import bcrypt from "bcrypt"
-import { getRepository } from "typeorm";
-
-//import 'dotenv/config'
-
 @InputType()
 class UserInput {
     @Field()
@@ -53,14 +49,12 @@ export class UserResolver {
         @Arg("variables", () => UserInput) variables: UserInput
     ){
         const newUser = User.create(variables);
-        console.log(newUser);
         return await newUser.save();
         
     }
 
     @Mutation(()=>Boolean)
     async deleteUser(@Arg("id", () => Int) id: number){
-        //console.log(id)
         await User.delete(id)
         return true
     }
@@ -76,7 +70,6 @@ export class UserResolver {
     
     @Query(()=>User)
     async me(@Arg("token",()=>String) token: string){
-        //console.log(Cookies.get())
         console.log(token)
         
         let user: any = jsonwebtoken.decode(token)
@@ -85,7 +78,6 @@ export class UserResolver {
             throw new Error("You are Not auth")
         }
         
-        //user is auth
         return await User.findOneOrFail(user.id)
     }
 
@@ -93,8 +85,6 @@ export class UserResolver {
     async signup (
         @Arg("signUp",()=>SignUp) signUp: SignUp
     ){
-        //dotenv.config() 
-        console.log('aqui paso')
         signUp.pass=await bcrypt.hash(signUp.pass, 10)
         const user = await User.create(signUp).save()
         return jsonwebtoken.sign(
@@ -111,10 +101,6 @@ export class UserResolver {
         const pass = logIn.pass
         
         const user = await User.findOne({ where: { email } });
-        // const user = await getRepository(User)
-        // .createQueryBuilder("user")
-        // .where("user.email = :correo", { correo: "rgnogueda@gmail.com" })
-        // .getOne();
 
         if (!user) {
             throw new Error('No user with that email')
@@ -130,10 +116,7 @@ export class UserResolver {
             'process.env.JWT_SECRET!',
             { expiresIn: '1d' }
           );
-          //Cookies.set('userToken', token)
-         // console.log(Cookies.get())
-        //global.window.sessionStorage.setItem("userToken",token);
-        // return json web token
+          
         return token
     }
 

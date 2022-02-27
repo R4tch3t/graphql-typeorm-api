@@ -1,4 +1,4 @@
-import {Resolver, Query, Mutation, Arg, Field, InputType, Int, ObjectType } from "type-graphql";
+import {Resolver, Query, Mutation, Arg, Field, InputType, Int } from "type-graphql";
 import { Column } from "typeorm";
 import { Author } from "../entity/Author";
 import { Book } from "../entity/Book";
@@ -11,8 +11,6 @@ class BooksAuthor{
     title!: string
     @Field()
     quantity!: number
-    //@Column()
-    //author!: Author
 }
 
 @InputType()
@@ -49,30 +47,12 @@ export class AuthorResolver {
         let newBooks: Book[] = Book.create(booksAuthor);
 
         await Book.upsert(newBooks,["id"]) 
-        /*booksAuthor.map(async (v, i) => {
-            let newBook = await Book.findOne({ where: { title: v.title } });
-            //const newAuthor = Author.create(author);
-            if (!newBook) {
-                newBook = new Book();
-                newBook.title = v.title;
-                //newBook.author = newAuthor! 
-                newBook.quantity = v.quantity;
-                newBooks.push(newBook);
-                await newBook.save();
-                
-            }
-        })*/  
-        //console.log(newBooks)
-        console.log(author) 
-        console.log(newAuthor)
         newAuthor.books=newAuthor.books.concat(newBooks)
-        console.log(newAuthor) 
         return await newAuthor.save();
     }
 
     @Mutation(()=>Boolean)
     async deleteAuthor(@Arg("id", () => Int) id: number){
-        //console.log(id)
         await Author.delete(id)
         return true
     } 

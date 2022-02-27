@@ -7,7 +7,8 @@ export class TramiteResolver {
 
     @Query(()=>[Tramite])
     tramites(){
-        const props = {active: true, relations: ["downloadableFormats","attModules","requirements","reqAds","tramitePreguntas"]}
+        const relations = ["downloadableFormats","attModules","requirements","reqAds","tramitePreguntas"]
+        const props = {active: true, relations}
         return Tramite.find(props)
     }
 }

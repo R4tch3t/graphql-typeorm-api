@@ -3,10 +3,8 @@ import { connect } from "./config/typeorm";
 import { startServer } from "./app"
 
 async function main() {
-    const app = await startServer();
-   // app.listen(3000);
+    await startServer();
     connect();
-    console.log('Conectado a la BDD y Servidor ejecutándose en l puerto', 3000);
 }
 
 main();

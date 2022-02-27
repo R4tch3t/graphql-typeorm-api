@@ -5,7 +5,7 @@ import {
     PrimaryColumn,
     ManyToOne
   } from "typeorm";
-  import { Field, Int, ObjectType } from "type-graphql";
+  import { Field, ObjectType } from "type-graphql";
   import { Tramite } from "./Tramite";
 
   @ObjectType()
