@@ -1,0 +1,37 @@
+import { Field, ObjectType } from "type-graphql";
+import { BaseEntity, Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { Procedure } from "./Procedure";
+
+@ObjectType()
+@Index("procedimiento_web_pkey", ["id"], { unique: true })
+@Index("idx_c946c3fc1624bcd2", ["procedureId"], {})
+@Entity("procedimiento_web", { schema: "procedures" })
+export class ProcedimientoWeb extends BaseEntity {
+
+  @Field({ nullable: true })
+  @Column("integer", { primary: true, name: "id" })
+  id: number;
+
+  @Column("integer", { name: "procedure_id" })
+  procedureId: number;
+
+  @Field({ nullable: true })
+  @Column("text", { name: "descripcion" })
+  descripcion: string;
+
+  @Field({ nullable: true })
+  @Column("text", { name: "nota" })
+  nota: string;
+
+  @Field({ nullable: true })
+  @Column("integer", { name: "numero_fase" })
+  numeroFase: number;
+
+  @Field({ nullable: true })
+  @Column("boolean", { name: "activo" })
+  activo: boolean;
+
+  @ManyToOne(() => Procedure, (procedure) => procedure.procedimientoWebs)
+  @JoinColumn([{ name: "procedure_id", referencedColumnName: "id" }])
+  procedure: Procedure;
+}

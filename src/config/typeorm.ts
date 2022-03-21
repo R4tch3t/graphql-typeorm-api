@@ -19,12 +19,14 @@ export async function connect(){
     await createConnection({
         type: 'postgres',
         host: 'localhost',
-        port: 5400,
+        port: 5432,
         username: 'postgres',
-        password: 'xswedcxs',
-        database: 'db_siiam_dev',
+        password: 'R4tch3t',
+       // database: 'db_siiam_dev',
+        database: 'db_tramites_dev',
         entities: [
-            path.join(__dirname,'../entity/**/**.ts')
+         //   path.join(__dirname,'../entity/**/**.ts')
+         path.join(__dirname,'../entities/**/**.ts')
         ],
         synchronize: false
     })
