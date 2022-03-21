@@ -4,47 +4,37 @@ import { Procedure } from '../entities/Procedure';
 
 @Resolver()
 export class ProcedureResolver {
-    
-    @Query(()=>Procedure)
-    procedureById(
-        @Arg("id",()=>Int) id: number
-    ){
-        const relations = [
-            "attentionModules","costos",
-            "downloadableFormats","fundamentoJuridicos",
-            "otroRequisitos", "procedimientoPresencials",
-            "procedimientoWebs", "responsableUnit","tipo",
-            "requirements", "requisitoAdicionals",
-            "tramitePreguntas"]
-        const props = {where:{id}, active: true, relations}
-        return Procedure.findOne(props)
-    }
-
-    @Query(()=>[Procedure])
-    tramiteByName(
-        @Arg("name",()=>String) name: string
-    ){
-        const relations = [
-            "attentionModules","costos",
-            "downloadableFormats","fundamentoJuridicos",
-            "otroRequisitos", "procedimientoPresencials",
-            "procedimientoWebs", "responsableUnit","tipo",
-            "requirements", "requisitoAdicionals",
-            "tramitePreguntas"]
-        const props = {where: {name: Like(`%${name}%`)}, active: true, relations}
-        return Procedure.find(props)
-    }
-
-    @Query(()=>[Procedure])
-    tramites(){
-        const relations = [
+    relations = [
         "attentionModules","costos",
         "downloadableFormats","fundamentoJuridicos",
         "otroRequisitos", "procedimientoPresencials",
         "procedimientoWebs", "responsableUnit","tipo",
         "requirements", "requisitoAdicionals",
         "tramitePreguntas"]
-        const props = {active: true, relations}
-        return Procedure.find(props)
+    props:any = {active: true, relations: this.relations}
+    @Query(()=>Procedure)
+    tramiteById(
+        @Arg("id",()=>Int) id: number
+    ){
+        this.props.where={id}
+        return Procedure.findOne(this.props)
+    }
+
+    @Query(()=>[Procedure])
+    tramiteByName(
+        @Arg("name",()=>String) name: string
+    ){
+        
+        //const props = {where: {name: Like(`%${name}%`)}, active: true, relations}
+        this.props.where={name: Like(`%${name}%`)}
+        return Procedure.find(this.props)
+    }
+
+    @Query(()=>[Procedure])
+    tramites(){
+        
+        //const props = {active: true, relations}
+        this.props.where=null;
+        return Procedure.find(this.props)
     }
 }
