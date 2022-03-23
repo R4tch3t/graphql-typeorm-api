@@ -1,5 +1,5 @@
 import {Resolver, Query, Mutation, Arg, Field, InputType, Int } from "type-graphql";
-import { Archivo } from "../entity/Archivo";
+import { Archivo } from "../entities/Archivo";
 import {GraphQLUpload} from 'graphql-upload';
 import { finished } from 'stream/promises';
 
