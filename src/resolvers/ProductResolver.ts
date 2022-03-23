@@ -1,5 +1,5 @@
 import {Resolver, Query, Mutation, Arg, Field, InputType, Int } from "type-graphql";
-import { Product } from "../entity/Product";
+import { Product } from "../entities/Product";
 
 @InputType()
 class ProductInput {

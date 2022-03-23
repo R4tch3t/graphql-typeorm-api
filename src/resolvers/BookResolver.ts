@@ -1,7 +1,7 @@
 import {Resolver, Query, Mutation, Arg, Field, InputType, Int} from "type-graphql";
 import { Column } from "typeorm";
-import { Author } from "../entity/Author";
-import { Book } from "../entity/Book";
+import { Author } from "../entities/Author";
+import { Book } from "../entities/Book";
 import { DocumentNode } from 'graphql';
 import gql from 'graphql-tag';
 

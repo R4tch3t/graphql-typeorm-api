@@ -1,5 +1,5 @@
 import {Resolver, Query, Mutation, Arg, Field, InputType, Int } from "type-graphql";
-import { User } from "../entity/User";
+import { User } from "../entities/User";
 import jsonwebtoken from "jsonwebtoken"
 import bcrypt from "bcrypt"
 @InputType()
@@ -106,7 +106,7 @@ export class UserResolver {
             throw new Error('No user with that email')
         }
         
-        const valid = await bcrypt.compare(pass, user.pass)
+        const valid = await bcrypt.compare(pass, user.password)
 
         if (!valid) {
             throw new Error('Incorrect password')

@@ -1,4 +1,4 @@
-import { Column, Entity, Index, ManyToMany, OneToMany } from "typeorm";
+import { BaseEntity, Column, Entity, Index, ManyToMany, OneToMany } from "typeorm";
 import { Bitacora } from "./Bitacora";
 import { Citizen } from "./Citizen";
 import { CorrespondenciaEntrante } from "./CorrespondenciaEntrante";
@@ -7,11 +7,13 @@ import { Seguimiento } from "./Seguimiento";
 import { SolicitudCiudadana } from "./SolicitudCiudadana";
 import { TramitePregunta } from "./TramitePregunta";
 import { Group } from "./Group";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("uniq_8d93d649e7927c74", ["email"], { unique: true })
 @Index("user_pkey", ["id"], { unique: true })
 @Entity("user", { schema: "public" })
-export class User {
+export class User extends BaseEntity {
   @Column("integer", { primary: true, name: "id" })
   id: number;
 
