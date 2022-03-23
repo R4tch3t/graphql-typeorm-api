@@ -26,7 +26,7 @@ export async function connect(){
         database: 'db_tramites_dev',
         entities: [
          //   path.join(__dirname,'../entity/**/**.ts')
-         path.join(__dirname,'../entities/**/**.ts')
+         path.join(__dirname,'../entities/**/**.**')
         ],
         synchronize: false
     })
