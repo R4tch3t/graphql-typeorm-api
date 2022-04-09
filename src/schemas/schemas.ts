@@ -8,7 +8,7 @@ import { FileResolver } from '../resolvers/FileResolver';
 import { ProcedureResolver } from '../resolvers/ProcedureResolver';
 
 export default async () => await buildSchema({
-    resolvers: [ ProcedureResolver ],
+    resolvers: [ ProcedureResolver, UserResolver ],
     validate: false
 
 })

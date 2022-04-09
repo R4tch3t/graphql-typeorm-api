@@ -12,6 +12,7 @@ export class AttentionModule extends BaseEntity {
   @Column("integer", { primary: true, name: "id" })
   id: number;
 
+  @Field({ nullable: true })
   @Column("integer", { name: "procedure_id" })
   procedureId: number;
 
@@ -27,6 +28,7 @@ export class AttentionModule extends BaseEntity {
   @Column("character varying", { name: "phones", length: 255 })
   phones: string;
 
+  @Field({ nullable: true })
   @Column("timestamp without time zone", {
     name: "updated_at",
     nullable: true,
@@ -34,15 +36,19 @@ export class AttentionModule extends BaseEntity {
   })
   updatedAt: Date | null;
 
+  @Field({ nullable: true })
   @Column("timestamp without time zone", { name: "created_at" })
   createdAt: Date;
 
+  @Field({ nullable: true })
   @Column("integer", { name: "user_updated", nullable: true })
   userUpdated: number | null;
 
+  @Field({ nullable: true })
   @Column("integer", { name: "user_created" })
   userCreated: number;
 
+  @Field({ nullable: true })
   @Column("character varying", {
     name: "latitude",
     nullable: true,
@@ -51,6 +57,7 @@ export class AttentionModule extends BaseEntity {
   })
   latitude: string | null;
 
+  @Field({ nullable: true })
   @Column("character varying", {
     name: "longitude",
     nullable: true,
@@ -59,6 +66,7 @@ export class AttentionModule extends BaseEntity {
   })
   longitude: string | null;
 
+  @Field({ nullable: true })
   @Column("character varying", {
     name: "cargo_responsable",
     nullable: true,
@@ -67,6 +75,7 @@ export class AttentionModule extends BaseEntity {
   })
   cargoResponsable: string | null;
 
+  @Field(() => Procedure,{ nullable: true })
   @ManyToOne(() => Procedure, (procedure) => procedure.attentionModules)
   @JoinColumn([{ name: "procedure_id", referencedColumnName: "id" }])
   procedure: Procedure;
