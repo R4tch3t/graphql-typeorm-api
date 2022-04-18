@@ -20,7 +20,7 @@ import { TipoTramite } from "./TipoTramite";
 import { Requirement } from "./Requirement";
 import { RequisitoAdicional } from "./RequisitoAdicional";
 import { TramitePregunta } from "./TramitePregunta";
-import { Field, ObjectType } from "type-graphql";
+import { Field, Int, ObjectType } from "type-graphql";
 
 @ObjectType()
 @Index("procedure_pkey", ["id"], { unique: true })
@@ -213,6 +213,9 @@ export class Procedure extends BaseEntity {
   @Field({ nullable: true })
   @Column("text", { name: "categoria", nullable: true })
   categoria: string | null;
+  
+  @Field(()=>Int,{ nullable: true })
+  count: number
 
   @Field(()=>[AttentionModule],{ nullable: true })
   @OneToMany(
@@ -256,14 +259,6 @@ export class Procedure extends BaseEntity {
     (procedimientoWeb) => procedimientoWeb.procedure
   )
   procedimientoWebs: ProcedimientoWeb[];
-
-  @Field(()=>ResponsableUnit,{ nullable: true })
-  @ManyToOne(
-    () => ResponsableUnit,
-    (responsableUnit) => responsableUnit.procedures
-  )
-  @JoinColumn([{ name: "responsable_unit_id", referencedColumnName: "id" }])
-  responsableUnit: ResponsableUnit;
   
   @Field(()=>TipoTramite,{ nullable: true })
   @ManyToOne(() => TipoTramite, (tipoTramite) => tipoTramite.procedures)
@@ -287,4 +282,12 @@ export class Procedure extends BaseEntity {
     (tramitePregunta) => tramitePregunta.tramite
   )
   tramitePreguntas: TramitePregunta[];
+
+  @Field(()=>ResponsableUnit)
+  @ManyToOne(
+    () => ResponsableUnit,
+    (responsableUnit) => responsableUnit.procedures
+  )
+  @JoinColumn([{ name: "responsable_unit_id", referencedColumnName: "id" }])
+  responsableUnit: ResponsableUnit;
 }

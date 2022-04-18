@@ -1,4 +1,4 @@
-import { Field, ObjectType } from "type-graphql";
+import { Field, Int, ObjectType } from "type-graphql";
 import { BaseEntity, Column, Entity, Index, OneToMany } from "typeorm";
 import { ChargeConcepts } from "./ChargeConcepts";
 import { CorrespondenciaEntrante } from "./CorrespondenciaEntrante";
@@ -41,39 +41,51 @@ export class ResponsableUnit extends BaseEntity {
   @Column("integer", { name: "accept_entry" })
   acceptEntry: number;
 
+  @Field(()=>Int,{ nullable: true })
+  totalTramites: number
+
+  @Field(()=>[ChargeConcepts],{ nullable: true })
   @OneToMany(
     () => ChargeConcepts,
     (chargeConcepts) => chargeConcepts.responsableUnit
   )
   chargeConcepts: ChargeConcepts[];
-
+  
+  @Field(()=>[CorrespondenciaEntrante],{ nullable: true })
   @OneToMany(
     () => CorrespondenciaEntrante,
     (correspondenciaEntrante) => correspondenciaEntrante.uresDestino
   )
   correspondenciaEntrantes: CorrespondenciaEntrante[];
-
+  
+  @Field(()=>[InvoiceControl],{ nullable: true })
   @OneToMany(
     () => InvoiceControl,
     (invoiceControl) => invoiceControl.responsableUnit
   )
   invoiceControls: InvoiceControl[];
-
+  
+  @Field(()=>[PaymentHead],{ nullable: true })
   @OneToMany(() => PaymentHead, (paymentHead) => paymentHead.responsableUnit)
   paymentHeads: PaymentHead[];
-
-  @OneToMany(() => Procedure, (procedure) => procedure.responsableUnit)
-  procedures: Procedure[];
-
+  
+  @Field(()=>[Seguimiento],{ nullable: true })
   @OneToMany(() => Seguimiento, (seguimiento) => seguimiento.areaPadre)
   seguimientos: Seguimiento[];
-
+  
+  @Field(()=>[Seguimiento],{ nullable: true })
   @OneToMany(() => Seguimiento, (seguimiento) => seguimiento.areaTurnada)
   seguimientos2: Seguimiento[];
-
+  
+  @Field(()=>[SolicitudCiudadana],{ nullable: true })
   @OneToMany(
     () => SolicitudCiudadana,
     (solicitudCiudadana) => solicitudCiudadana.ures
   )
   solicitudCiudadanas: SolicitudCiudadana[];
+  
+  @Field(()=>[Procedure],{ nullable: true })
+  @OneToMany(() => Procedure, (procedure) => procedure.responsableUnit)
+  procedures: Procedure[];
+
 }
