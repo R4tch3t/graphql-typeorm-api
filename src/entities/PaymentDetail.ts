@@ -1,7 +1,9 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { ChargeConcepts } from "./ChargeConcepts";
 import { PaymentHead } from "./PaymentHead";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("idx_e928245061b2a8d8", ["chargeConceptId"], {})
 @Index("payment_detail_pkey", ["id"], { unique: true })
 @Index("idx_e92824504c3a3bb", ["paymentId"], {})

@@ -10,6 +10,8 @@ import {
 } from "typeorm";
 import { ActEconConNegocio } from "./ActEconConNegocio";
 import { TipoGiro } from "./TipoGiro";
+
+
 @ObjectType()
 @Index("actividad_economica_pkey", ["id"], { unique: true })
 @Index("idx_94cbbf8b96289aff", ["tipoGiroId"], {})

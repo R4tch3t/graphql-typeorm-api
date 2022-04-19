@@ -1,7 +1,9 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Meretriz } from "./Meretriz";
 import { Shop } from "./Shop";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("meretriz_job_pkey", ["id"], { unique: true })
 @Index("idx_21adb27fd63af17f", ["meretrizId"], {})
 @Index("idx_21adb27f4d16c4dd", ["shopId"], {})

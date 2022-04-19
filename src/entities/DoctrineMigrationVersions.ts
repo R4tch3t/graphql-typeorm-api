@@ -1,5 +1,7 @@
 import { Column, Entity, Index } from "typeorm";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("doctrine_migration_versions_pkey", ["version"], { unique: true })
 @Entity("doctrine_migration_versions", { schema: "public" })
 export class DoctrineMigrationVersions {

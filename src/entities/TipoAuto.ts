@@ -1,6 +1,8 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { ParqueVehicular } from "./ParqueVehicular";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("tipo_auto_pkey", ["id"], { unique: true })
 @Entity("tipo_auto", { schema: "control_patrimonial" })
 export class TipoAuto {

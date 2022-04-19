@@ -1,6 +1,8 @@
 import { Column, Entity, Index, JoinTable, ManyToMany } from "typeorm";
 import { User } from "./User";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("group_pkey", ["id"], { unique: true })
 @Entity("group", { schema: "public" })
 export class Group {

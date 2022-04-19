@@ -9,7 +9,9 @@ import {
 import { Bien } from "./Bien";
 import { Marca } from "./Marca";
 import { TipoAuto } from "./TipoAuto";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("uniq_9be95368bd95b80f", ["bienId"], { unique: true })
 @Index("parque_vehicular_pkey", ["id"], { unique: true })
 @Index("uniq_9be9536881ef0041", ["marcaId"], { unique: true })

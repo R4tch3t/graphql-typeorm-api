@@ -2,8 +2,9 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { ResponsableUnit } from "./ResponsableUnit";
 import { CorrespondenciaEntrante } from "./CorrespondenciaEntrante";
 import { AtencionEstado } from "./AtencionEstado";
-import { User } from "./User";
+import { User } from "./User";import { Field, ObjectType } from 'type-graphql';
 
+@ObjectType()
 @Index("idx_4de33c52a233b290", ["areaPadreId"], {})
 @Index("idx_4de33c52a99009d7", ["areaTurnadaId"], {})
 @Index("idx_4de33c524cf0c867", ["correspondenciaId"], {})
@@ -13,6 +14,7 @@ import { User } from "./User";
 @Index("idx_4de33c52c5617d3f", ["usuarioModificoId"], {})
 @Entity("seguimiento", { schema: "correspondencia" })
 export class Seguimiento {
+  @Field({ nullable: true })
   @Column("integer", { primary: true, name: "id" })
   id: number;
 

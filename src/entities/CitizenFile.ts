@@ -1,6 +1,8 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Citizen } from "./Citizen";
+import { Field, ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("idx_dff1b649a63c3c2e", ["citizenId"], {})
 @Index("idx_dff1b649c33f7837", ["documentId"], {})
 @Index("citizen_file_pkey", ["id"], { unique: true })

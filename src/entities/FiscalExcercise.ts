@@ -1,5 +1,7 @@
 import { Column, Entity, Index } from "typeorm";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("fiscal_excercise_pkey", ["id"], { unique: true })
 @Entity("fiscal_excercise", { schema: "finance" })
 export class FiscalExcercise {

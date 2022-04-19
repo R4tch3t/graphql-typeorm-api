@@ -1,12 +1,15 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Localidades } from "./Localidades";
 import { Shop } from "./Shop";
+import { Field, ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("shop_owner_pkey", ["id"], { unique: true })
 @Index("idx_3d584fe088823a92", ["localityId"], {})
 @Index("idx_3d584fe04d16c4dd", ["shopId"], {})
 @Entity("shop_owner", { schema: "salud_municipal" })
 export class ShopOwner {
+  @Field({ nullable: true })
   @Column("integer", { primary: true, name: "id" })
   id: number;
 

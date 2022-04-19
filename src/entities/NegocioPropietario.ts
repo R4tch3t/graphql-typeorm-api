@@ -8,12 +8,15 @@ import {
 } from "typeorm";
 import { Localidades } from "./Localidades";
 import { Negocio } from "./Negocio";
+import { Field, ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("negocio_propietario_pkey", ["id"], { unique: true })
 @Index("idx_3905931167707c89", ["localidadId"], {})
 @Index("uniq_390593117d879e4f", ["negocioId"], { unique: true })
 @Entity("negocio_propietario", { schema: "licencias_comerciales" })
 export class NegocioPropietario {
+  @Field({ nullable: true })
   @Column("integer", { primary: true, name: "id" })
   id: number;
 

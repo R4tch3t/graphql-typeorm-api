@@ -8,7 +8,9 @@ import {
 } from "typeorm";
 import { Bien } from "./Bien";
 import { ParqueVehicular } from "./ParqueVehicular";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("idx_dc5f05adbd95b80f", ["bienId"], {})
 @Index("marca_pkey", ["id"], { unique: true })
 @Entity("marca", { schema: "control_patrimonial" })

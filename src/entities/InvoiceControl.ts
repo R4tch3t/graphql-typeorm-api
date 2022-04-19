@@ -8,11 +8,14 @@ import {
 } from "typeorm";
 import { ResponsableUnit } from "./ResponsableUnit";
 import { PaymentHead } from "./PaymentHead";
+import { Field, ObjectType } from 'type-graphql';
 
+@ObjectType()
 @Index("invoice_control_pkey", ["id"], { unique: true })
 @Index("idx_4e1a923e472ccfe", ["responsableUnitId"], {})
 @Entity("invoice_control", { schema: "finance" })
 export class InvoiceControl {
+  @Field({ nullable: true })
   @Column("integer", { primary: true, name: "id" })
   id: number;
 

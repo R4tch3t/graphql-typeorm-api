@@ -1,6 +1,8 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Negocio } from "./Negocio";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("idx_2d7984a9952be730", ["empleadoId"], {})
 @Index("personal_autoriza_pkey", ["id"], { unique: true })
 @Entity("personal_autoriza", { schema: "licencias_comerciales" })

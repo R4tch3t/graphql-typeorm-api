@@ -1,6 +1,8 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { AccountPlans } from "./AccountPlans";
+import { ObjectType } from 'type-graphql';
 
+@ObjectType()
 @Index("idx_c7cc33119b6b5fba", ["accountId"], {})
 @Index("budget_classifier_pkey", ["id"], { unique: true })
 @Index("idx_c7cc3311c22d8f50", ["receivablePayAccountId"], {})

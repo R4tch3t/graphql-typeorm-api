@@ -1,5 +1,7 @@
 import { Column, Entity, Index } from "typeorm";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("role_pkey", ["id"], { unique: true })
 @Index("uniq_57698a6a5e237e06", ["name"], { unique: true })
 @Entity("role", { schema: "public" })

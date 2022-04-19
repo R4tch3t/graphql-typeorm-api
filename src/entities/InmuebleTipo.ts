@@ -1,6 +1,8 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Shop } from "./Shop";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("inmueble_tipo_pkey", ["id", "id"], { unique: true })
 @Entity("inmueble_tipo", { schema: "salud_municipal" })
 export class InmuebleTipo {

@@ -19,9 +19,9 @@ export async function connect(){
     await createConnection({
         type: 'postgres',
         host: 'localhost',
-        port: 5432,
+        port: 5400,
         username: 'postgres',
-        password: 'R4tch3t',
+        password: 'xswedcxs',
        // database: 'db_siiam_dev',
         database: 'db_tramites_dev',
         entities: [

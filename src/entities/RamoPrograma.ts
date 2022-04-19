@@ -1,6 +1,8 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Bien } from "./Bien";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("ramo_programa_pkey", ["id"], { unique: true })
 @Entity("ramo_programa", { schema: "control_patrimonial" })
 export class RamoPrograma {

@@ -8,7 +8,9 @@ import {
 } from "typeorm";
 import { TipoGiro } from "./TipoGiro";
 import { Negocio } from "./Negocio";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("giro_comercial_pkey", ["id"], { unique: true })
 @Index("idx_a3905dda96289aff", ["tipoGiroId"], {})
 @Entity("giro_comercial", { schema: "licencias_comerciales" })

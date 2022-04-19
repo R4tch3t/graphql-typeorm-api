@@ -1,6 +1,8 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Bien } from "./Bien";
+import { Field, ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("cuenta_publica_pkey", ["id"], { unique: true })
 @Entity("cuenta_publica", { schema: "control_patrimonial" })
 export class CuentaPublica {

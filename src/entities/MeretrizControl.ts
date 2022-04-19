@@ -1,6 +1,8 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Citizen } from "./Citizen";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("idx_c623ee6ea63c3c2e", ["citizenId"], {})
 @Index("meretriz_control_pkey", ["id"], { unique: true })
 @Entity("meretriz_control", { schema: "salud_municipal" })

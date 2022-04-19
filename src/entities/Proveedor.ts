@@ -1,6 +1,8 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Factura } from "./Factura";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("proveedor_pkey", ["id"], { unique: true })
 @Entity("proveedor", { schema: "control_patrimonial" })
 export class Proveedor {

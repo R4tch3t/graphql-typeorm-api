@@ -8,7 +8,9 @@ import {
 } from "typeorm";
 import { ChargeConcepts } from "./ChargeConcepts";
 import { AccountPlans } from "./AccountPlans";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("matriz_ingreso_pkey", ["id"], { unique: true })
 @Index("idx_cf6368782031a2d5", ["planCuentaAbonoId"], {})
 @Index("idx_cf636878e1a4cc01", ["planCuentaCargoId"], {})

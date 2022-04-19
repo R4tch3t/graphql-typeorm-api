@@ -11,12 +11,15 @@ import { InmuebleTipo } from "./InmuebleTipo";
 import { NegocioGiro } from "./NegocioGiro";
 import { ShopDetail } from "./ShopDetail";
 import { ShopOwner } from "./ShopOwner";
+import { Field, ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("shop_pkey", ["id"], { unique: true })
 @Index("idx_3ef756e876b62e8a", ["proportyTypeId"], {})
 @Index("idx_3ef756e8c67fccb9", ["shopTypeId"], {})
 @Entity("shop", { schema: "salud_municipal" })
 export class Shop {
+  @Field({ nullable: true })
   @Column("integer", { primary: true, name: "id" })
   id: number;
 

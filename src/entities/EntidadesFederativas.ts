@@ -1,6 +1,8 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Municipios } from "./Municipios";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("entidades_federativas_pkey", ["id"], { unique: true })
 @Entity("entidades_federativas", { schema: "public" })
 export class EntidadesFederativas {

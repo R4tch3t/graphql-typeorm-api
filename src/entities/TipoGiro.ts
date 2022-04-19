@@ -1,7 +1,9 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { ActividadEconomica } from "./ActividadEconomica";
 import { GiroComercial } from "./GiroComercial";
+import { ObjectType } from "type-graphql";
 
+@ObjectType()
 @Index("tipo_giro_pkey", ["id"], { unique: true })
 @Entity("tipo_giro", { schema: "licencias_comerciales" })
 export class TipoGiro {
