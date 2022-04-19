@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   Entity,
   Index,
@@ -8,11 +9,14 @@ import {
 } from "typeorm";
 import { Localidades } from "./Localidades";
 import { EntidadesFederativas } from "./EntidadesFederativas";
-
+import { Field, ObjectType } from "type-graphql";
+@ObjectType()
 @Index("idx_bbfab5866961924a", ["entidadFederativaId"], {})
 @Index("municipios_pkey", ["id"], { unique: true })
 @Entity("municipios", { schema: "public" })
-export class Municipios {
+export class Municipios extends BaseEntity {
+  
+  @Field({ nullable: true })
   @Column("integer", { primary: true, name: "id" })
   id: number;
 

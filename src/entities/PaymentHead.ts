@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   Entity,
   Index,
@@ -12,7 +13,8 @@ import { Cashier } from "./Cashier";
 import { Citizen } from "./Citizen";
 import { InvoiceControl } from "./InvoiceControl";
 import { ResponsableUnit } from "./ResponsableUnit";
-
+import { Field, ObjectType } from "type-graphql";
+@ObjectType()
 @Index("idx_ed5be2006352511c", ["adminUserId"], {})
 @Index("idx_ed5be2002edb0489", ["cashierId"], {})
 @Index("idx_ed5be200a63c3c2e", ["citizenId"], {})
@@ -20,7 +22,8 @@ import { ResponsableUnit } from "./ResponsableUnit";
 @Index("idx_ed5be2002989f1fd", ["invoiceId"], {})
 @Index("idx_ed5be200e472ccfe", ["responsableUnitId"], {})
 @Entity("payment_head", { schema: "finance" })
-export class PaymentHead {
+export class PaymentHead extends BaseEntity {
+  @Field({ nullable: true })
   @Column("integer", { primary: true, name: "id" })
   id: number;
 

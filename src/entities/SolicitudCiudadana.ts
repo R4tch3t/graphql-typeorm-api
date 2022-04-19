@@ -1,16 +1,19 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { BaseEntity, Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { AtencionTipo } from "./AtencionTipo";
 import { AtencionEstado } from "./AtencionEstado";
 import { ResponsableUnit } from "./ResponsableUnit";
 import { User } from "./User";
-
+import { Field, ObjectType } from "type-graphql";
+@ObjectType()
 @Index("idx_83b42608738c9cd0", ["atencionTipoId"], {})
 @Index("idx_83b4260820d836a0", ["estadoAtencionId"], {})
 @Index("solicitud_ciudadana_pkey", ["id"], { unique: true })
 @Index("idx_83b42608d48e6755", ["uresId"], {})
 @Index("idx_83b42608db38439e", ["usuarioId"], {})
 @Entity("solicitud_ciudadana", { schema: "correspondencia" })
-export class SolicitudCiudadana {
+export class SolicitudCiudadana extends BaseEntity {
+
+  @Field({ nullable: true })
   @Column("integer", { primary: true, name: "id" })
   id: number;
 

@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   Entity,
   Index,
@@ -12,13 +13,15 @@ import { GiroComercial } from "./GiroComercial";
 import { Localidades } from "./Localidades";
 import { PersonalAutoriza } from "./PersonalAutoriza";
 import { NegocioPropietario } from "./NegocioPropietario";
-
+import { Field, ObjectType } from "type-graphql";
+@ObjectType()
 @Index("idx_eed07684bdb4e849", ["giroComercialId"], {})
 @Index("negocio_pkey", ["id"], { unique: true })
 @Index("idx_eed0768467707c89", ["localidadId"], {})
 @Index("idx_eed07684655b0ef3", ["personalAutorizaId"], {})
 @Entity("negocio", { schema: "licencias_comerciales" })
-export class Negocio {
+export class Negocio extends BaseEntity {
+  @Field({ nullable: true })
   @Column("integer", { primary: true, name: "id" })
   id: number;
 
