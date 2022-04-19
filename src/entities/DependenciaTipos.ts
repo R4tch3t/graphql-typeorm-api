@@ -1,11 +1,12 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
-import { Dependencia } from "./Dependencia";
 import { Field, ObjectType } from "type-graphql";
+import { BaseEntity, Column, Entity, Index, OneToMany } from "typeorm";
+import { Dependencia } from "./Dependencia";
 
 @ObjectType()
 @Index("dependencia_tipos_pkey", ["id"], { unique: true })
 @Entity("dependencia_tipos", { schema: "correspondencia" })
-export class DependenciaTipos {
+export class DependenciaTipos extends BaseEntity {
+
   @Field({ nullable: true })
   @Column("integer", { primary: true, name: "id" })
   id: number;

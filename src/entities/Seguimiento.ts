@@ -1,8 +1,9 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { BaseEntity, Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { ResponsableUnit } from "./ResponsableUnit";
 import { CorrespondenciaEntrante } from "./CorrespondenciaEntrante";
 import { AtencionEstado } from "./AtencionEstado";
-import { User } from "./User";import { Field, ObjectType } from 'type-graphql';
+import { User } from "./User";
+import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()
 @Index("idx_4de33c52a233b290", ["areaPadreId"], {})
@@ -13,7 +14,9 @@ import { User } from "./User";import { Field, ObjectType } from 'type-graphql';
 @Index("idx_4de33c52b3698cc1", ["usuarioCreoId"], {})
 @Index("idx_4de33c52c5617d3f", ["usuarioModificoId"], {})
 @Entity("seguimiento", { schema: "correspondencia" })
-export class Seguimiento {
+
+export class Seguimiento extends BaseEntity {
+
   @Field({ nullable: true })
   @Column("integer", { primary: true, name: "id" })
   id: number;

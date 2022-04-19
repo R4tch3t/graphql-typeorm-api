@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   Entity,
   Index,
@@ -10,15 +11,15 @@ import { AdditionalCharge } from "./AdditionalCharge";
 import { MatrizIngreso } from "./MatrizIngreso";
 import { ResponsableUnit } from "./ResponsableUnit";
 import { PaymentDetail } from "./PaymentDetail";
-import { Field, ObjectType } from 'type-graphql';
+import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()
 @Index("idx_cd89dbb7775e9a09", ["budgetClassifierId"], {})
 @Index("charge_concepts_pkey", ["id"], { unique: true })
 @Index("idx_cd89dbb7e472ccfe", ["responsableUnitId"], {})
 @Entity("charge_concepts", { schema: "finance" })
+export class ChargeConcepts extends BaseEntity {
 
-export class ChargeConcepts {
   @Field({ nullable: true })
   @Column("integer", { primary: true, name: "id" })
   id: number;

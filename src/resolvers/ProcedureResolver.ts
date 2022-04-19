@@ -5,13 +5,15 @@ import { ResponsableUnit } from '../entities/ResponsableUnit';
 
 @Resolver()
 export class ProcedureResolver {
-    relations = [
+    relations = 
+    [
         "attentionModules","costos",
         "downloadableFormats","fundamentoJuridicos",
         "otroRequisitos", "procedimientoPresencials",
         "procedimientoWebs", "responsableUnit","tipo",
         "requirements", "requisitoAdicionals",
-        "tramitePreguntas"]
+        "tramitePreguntas"
+    ]
     props:any = {active: true, relations: this.relations}
     
     @Query(()=>Procedure)

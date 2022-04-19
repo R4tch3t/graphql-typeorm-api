@@ -1,4 +1,6 @@
+import { Field, ObjectType } from "type-graphql";
 import {
+  BaseEntity,
   Column,
   Entity,
   Index,
@@ -9,13 +11,16 @@ import {
 import { Localidades } from "./Localidades";
 import { MeretrizJob } from "./MeretrizJob";
 import { MeretrizRevision } from "./MeretrizRevision";
-import { Field, ObjectType } from "type-graphql";
+
 
 @ObjectType()
 @Index("meretriz_pkey", ["id"], { unique: true })
 @Index("idx_684b064f88823a92", ["localityId"], {})
 @Entity("meretriz", { schema: "salud_municipal" })
-export class Meretriz {
+
+export class Meretriz extends BaseEntity {
+  
+  
   @Field({ nullable: true })
   @Column("integer", { primary: true, name: "id" })
   id: number;

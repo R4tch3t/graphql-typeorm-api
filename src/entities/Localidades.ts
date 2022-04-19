@@ -88,18 +88,18 @@ export class Localidades extends BaseEntity {
   @OneToMany(() => Negocio, (negocio) => negocio.localidad)
   negocios: Negocio[];
 
-  @Field(() => [NegocioPropietario], { nullable: true })
+  //@Field(() => [NegocioPropietario], { nullable: true })
   @OneToMany(
     () => NegocioPropietario,
     (negocioPropietario) => negocioPropietario.localidad
   )
   negocioPropietarios: NegocioPropietario[];
   
-  @Field(() => [ShopDetail], { nullable: true })
+  //@Field(() => [ShopDetail], { nullable: true })
   @OneToMany(() => ShopDetail, (shopDetail) => shopDetail.locality)
   shopDetails: ShopDetail[];
   
-  @Field(() => [ShopOwner], { nullable: true })
+  //@Field(() => [ShopOwner], { nullable: true })
   @OneToMany(() => ShopOwner, (shopOwner) => shopOwner.locality)
   shopOwners: ShopOwner[];
 }
