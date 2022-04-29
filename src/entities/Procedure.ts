@@ -28,19 +28,20 @@ import { Field, Int, ObjectType } from "type-graphql";
 @Index("idx_3e08d70ee472ccfe", ["responsableUnitId"], {})
 @Index("idx_3e08d70ea9276e6c", ["tipoId"], {})
 @Entity("procedure", { schema: "procedures" })
+
 export class Procedure extends BaseEntity {
   
-  @Field({ nullable: true })
+  @Field({ nullable: false })
   //@Column("integer", { primary: true, name: "id" })
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field({ nullable: true })
+  @Field({ nullable: false })
   @Column("integer", { name: "responsable_unit_id" })
   responsableUnitId: number;
 
-  @Field({ nullable: true })
-  @Column("character varying", { name: "name", length: 255 })
+  @Field({ nullable: false })
+  @Column("character varying", { name: "nombre", length: 255 })
   name: string;
 
   @Field({ nullable: true })

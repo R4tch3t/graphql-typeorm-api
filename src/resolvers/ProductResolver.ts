@@ -1,5 +1,6 @@
 import {Resolver, Query, Mutation, Arg, Field, InputType, Int } from "type-graphql";
 import { Product } from "../entities/Product";
+import { VwProcedure } from "../entities/VwProcedure";
 
 @InputType()
 class ProductInput {
@@ -21,6 +22,7 @@ class ProductUpdateInput {
 
 @Resolver()
 export class ProductResolver {
+    props: any;
     
     @Mutation(()=> Product)
     async createProduct(
@@ -51,5 +53,12 @@ export class ProductResolver {
     @Query(()=>[Product])
     products(){
         return Product.find()
+    }
+
+        @Query( ()=>[VwProcedure])
+    async proceduresCountByUr(){
+         
+        //this.props.where=null;
+        return VwProcedure.find(this.props)
     }
 }

@@ -1,4 +1,4 @@
-import { Any, BaseEntity, Column, Entity, Index, ManyToMany, OneToMany } from "typeorm";
+import { Any, BaseEntity, Column, Entity, Index, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Bitacora } from "./Bitacora";
 import { Citizen } from "./Citizen";
 import { CorrespondenciaEntrante } from "./CorrespondenciaEntrante";
@@ -17,7 +17,8 @@ import { Field, ObjectType } from "type-graphql";
 export class User extends BaseEntity {
 
   @Field({ nullable: true })
-  @Column("integer", { primary: true, name: "id" })
+  //@Column("integer", { primary: true, name: "id" })
+  @PrimaryGeneratedColumn({ type: "integer", name: "id" })
   id: number;
 
   @Field({ nullable: true })

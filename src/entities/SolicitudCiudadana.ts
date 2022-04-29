@@ -15,7 +15,7 @@ import { Field, ObjectType } from "type-graphql";
 
 export class SolicitudCiudadana extends BaseEntity {
 
-  @Field({ nullable: true })
+  @Field({ nullable: false })
   @Column("integer", { primary: true, name: "id" })
   id: number;
 

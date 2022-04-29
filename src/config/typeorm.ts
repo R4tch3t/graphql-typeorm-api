@@ -2,21 +2,7 @@ import { createConnection } from "typeorm";
 import path from "path";
 export async function connect(){
 
-    // await createConnection({
-    //     type: 'oracle',
-    //     host: 'localhost',
-    //     port: 1521,
-    //     username: 'XE',
-    //     password: 'oracle',
-    //     database: 'XE',
-    //     entities: [
-    //         path.join(__dirname,'../entity/**/**.ts')
-    //     ],
-    //     synchronize: true
-    // })
-
-
-    await createConnection({
+     await createConnection({
         type: 'postgres',
         host: 'localhost',
         port: 5400,
@@ -30,17 +16,4 @@ export async function connect(){
         synchronize: false
     })
 
-
-    //await createConnection({
-    //    type: 'mysql',
-    //    host: 'localhost',
-    //    port: 3306,
-    //    username: 'root',
-    //    password: '',
-    //    database: 'graphqlts',
-    //    entities: [
-    //        path.join(__dirname,'../entity/**/**.ts')
-    //    ],
-    //    synchronize: true
-    //})
 }

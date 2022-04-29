@@ -1,7 +1,8 @@
 import {Resolver, Query, Arg, Int } from "type-graphql";
-import { Like } from "typeorm";
+import { createQueryBuilder, Like } from "typeorm";
 import { Procedure } from '../entities/Procedure';
 import { ResponsableUnit } from '../entities/ResponsableUnit';
+import { VwProcedure } from '../entities/VwProcedure';
 
 @Resolver()
 export class ProcedureResolver {
@@ -71,5 +72,12 @@ export class ProcedureResolver {
 
         return r
     }
+
+    // @Query( ()=>[VwProcedure])
+    // async proceduresCountByUr(){
+         
+    //     this.props.where=null;
+    //     return VwProcedure.find(this.props)
+    // }
 
 }

@@ -5,6 +5,8 @@ import bcrypt from "bcrypt"
 @InputType()
 class UserInput {
     @Field()
+    id!: number
+    @Field()
     username!: string
     @Field()
     email!: string
@@ -15,11 +17,13 @@ class UserInput {
 @InputType()
 class SignUp {
     @Field()
+    id!: number
+    @Field()
     username!: string
     @Field()
     email!: string
     @Field()
-    pass!: string
+    password!: string
 }
 
 @InputType()
@@ -47,7 +51,8 @@ export class UserResolver {
     @Mutation(()=> User)
     async createUser(
         @Arg("variables", () => UserInput) variables: UserInput
-    ){
+    ){  
+        
         const newUser = User.create(variables);
         return await newUser.save();
         
@@ -85,7 +90,8 @@ export class UserResolver {
     async signup (
         @Arg("signUp",()=>SignUp) signUp: SignUp
     ){
-        signUp.pass=await bcrypt.hash(signUp.pass, 10)
+        console.log(signUp);
+        signUp.password = await bcrypt.hash(signUp.password, 10)
         const user = await User.create(signUp).save()
         return jsonwebtoken.sign(
             { id: user.id, email: user.email },
@@ -100,6 +106,8 @@ export class UserResolver {
         const email = logIn.email
         const pass = logIn.pass
         
+console.log('aqui paso bien', email, pass);
+
         const user = await User.findOne({ where: { email } });
 
         if (!user) {
